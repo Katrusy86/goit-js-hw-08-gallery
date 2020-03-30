@@ -13,9 +13,9 @@ const fragment = document.createDocumentFragment();
 galleryItems.forEach(image => {
     refs.galleryItem.insertAdjacentHTML('beforeend', 
     `<li class="gallery__item">
-    <a class="gallery__link" href=${image.original}>
-        <img class="gallery__image" src=${image.preview} data-source=${image.original} alt="${image.description}" />
-    </a>
+        <a class="gallery__link" href=${image.original}>
+            <img class="gallery__image" src=${image.preview} data-source=${image.original} alt="${image.description}" />
+        </a>
     </li>`)
 })
 refs.galleryItem.appendChild(fragment);
@@ -75,7 +75,7 @@ function keyPress(evn){
 const lazyLoad = target =>{
     const options = {};
 
-    const io = new IntersectionObserver((entries, observer)=>{
+    const lazyItems = new IntersectionObserver((entries, observer)=>{
         entries.forEach(entry=>{
             console.log(entry.target)
             if(entry.isIntersecting){
@@ -88,9 +88,9 @@ const lazyLoad = target =>{
         })
     },options)
 
-    io.observe(target);
+    lazyItems.observe(target);
 };
-const items = refs.galleryItem.querySelectorAll('li')
+const items = refs.galleryItem.querySelectorAll("li > a > img")
 
 items.forEach(li =>{
     lazyLoad(li);
